@@ -40,6 +40,7 @@ window.onload = function(){
       ];
 
       var maxMonsters = 10;
+      var gameOver = false;
 
 
       // borrowed util
@@ -69,6 +70,8 @@ window.onload = function(){
 
           if(collision){
             console.log('HIT!');
+            //gameOver = true;
+            //alert('Game over :(. Refresh to restart');
           }
         }
       }
@@ -150,6 +153,7 @@ window.onload = function(){
 
 
       var render = function(){
+        if(gameOver) return;
         ctx.restore();
         ctx.save();
         ctx.clearRect(0,0, width, height);
