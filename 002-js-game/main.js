@@ -17,42 +17,101 @@ window.onload = function(){
       var drawSquare = function(color, x, y, size){
 
         ctx.beginPath();
-        ctx.rect(x, y, 150, 100);
+        ctx.rect(x, y, size, size);
         ctx.fillStyle = color;
         ctx.fill();
 
       }
 
 
-      var mouseX = 0;
       var mouseY = 0;
       var playerX = 100
-      var playerWidth = 20;
+      var playerWidth = 50;
+      
 
             var bullets  = [
       ];
 
       var maxBullets = 3;
+      var monsterWidth = 15;
+      var bulletWidth = 10;
 
       var monsters = [
       ];
 
-      var maxMonsters = 2;
+      var maxMonsters = 10;
+
+
+      // borrowed util
+      function intersectRect(r1, r2) {
+        return !(r2.left > r1.right || 
+                 r2.right < r1.left || 
+                   r2.top > r1.bottom ||
+                     r2.bottom < r1.top);
+      }
+
+      var checkIfPlayerHit = function(){
+
+        for(var ii = 0; ii < monsters.length; ii++){
+          var monster = monsters[ii];
+          var collision = intersectRect({
+            left: playerX,
+            right: playerX + playerWidth,
+            top: mouseY,
+            bottom: mouseY + playerWidth
+          },
+          {
+            left: monster.x,
+            right: monster.x + monsterWidth,
+            top: monster.y,
+            bottom: monster.y + monsterWidth
+          });
+
+          if(collision){
+            console.log('HIT!');
+          }
+        }
+      }
+
+
+
+
+      var updateBullets= function(){
+
+        for(var ii = 0; ii < bullets.length; ii++){
+          console.log('bullets');
+          var m = bullets[ii];
+          m.x+= 10;
+          drawSquare('white', m.x, m.y, bulletWidth);
+          if(m.x+10 + bulletWidth  >=  width ) {
+            bullets.splice(ii, 1);
+          }
+        }
+
+      };
+
+
 
       var updateMonsters = function(){
 
         for(var ii = 0; ii < monsters.length; ii++){
           var m = monsters[ii];
           m.x-= 10;
-          drawSquare('red', m.x, m.y, 10);
+          drawSquare('red', m.x, m.y, monsterWidth);
+          if(m.x-10 <= 0 ) {
+            monsters.splice(ii, 1);
+          }
         }
 
       };
+
       var checkMonsters = function(){
-        var createCont = (maxMonsters-1) -  monsters.length;
-        for(var ii = 0; ii < maxMonsters; ii++){
+
+        
+        var createCount = maxMonsters -  monsters.length;
+        for(var ii = 0; ii < createCount ; ii++){
           monsters.push({
-            x: width  ,
+            x: width + Math.random()*400, // adding monster with a little offset
             y: Math.random() * height
           });
         }
@@ -70,11 +129,13 @@ window.onload = function(){
 
         checkMonsters();
         updateMonsters();
+        updateBullets();
 
         // We are drawing the killer 
         drawSquare('yellow', playerX, mouseY,  playerWidth);
 
 
+        checkIfPlayerHit();
         setTimeout(function(){ 
           render();
         }, 1000/60);
@@ -82,10 +143,24 @@ window.onload = function(){
       render();
 
 
+      document.body.addEventListener('mousedown', function(ee){
+        console.log('mousedown', maxBullets, bullets.length);
+        //console.log(ee);
+        mouseY = ee.clientY;
+        if(maxBullets >  bullets.length){
+          console.log('adding bullet');
+          bullets.push({
+            x:  playerX,
+            y:  mouseY
+          });
+        }
+
+      });
+
 
 
       document.body.addEventListener('mousemove', function(ee){
-        console.log(ee);
+        //console.log(ee);
         mouseY = ee.clientY;
 
       });
