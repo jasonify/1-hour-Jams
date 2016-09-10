@@ -101,6 +101,7 @@ window.onload = function(){
             if(collision){
               console.log('KILLLL!');
               trophies.push(monsters[ii]);
+              document.getElementById('points').innerHTML = "" + trophies.length;
               monsters.splice(ii, 1);
 
             }
