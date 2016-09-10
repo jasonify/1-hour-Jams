@@ -39,6 +39,9 @@ window.onload = function(){
       var monsters = [
       ];
 
+      var trophies = [];
+      var trophiesWidth = 5;
+
       var maxMonsters = 10;
       var gameOver = false;
 
@@ -97,6 +100,7 @@ window.onload = function(){
 
             if(collision){
               console.log('KILLLL!');
+              trophies.push(monsters[ii]);
               monsters.splice(ii, 1);
 
             }
@@ -104,6 +108,17 @@ window.onload = function(){
         }
       }
 
+
+
+      var updateTrophies = function(){
+
+        var bullets = trophies;
+        for(var ii = 0; ii < bullets.length; ii++){
+          var m = bullets[ii];
+          drawSquare('white', m.x, m.y, 2);
+        }
+
+      };
 
 
 
@@ -162,6 +177,7 @@ window.onload = function(){
         checkMonsters();
         updateMonsters();
         updateBullets();
+        updateTrophies();
 
         // We are drawing the killer 
         drawSquare('yellow', playerX, mouseY,  playerWidth);
