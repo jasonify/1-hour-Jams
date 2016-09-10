@@ -73,6 +73,34 @@ window.onload = function(){
         }
       }
 
+      var checkIfMonsterKilled = function(){
+        for(var ff = 0; ff < bullets.length; ff++){
+
+          var bullet = bullets[ff];
+          for(var ii = 0; ii < monsters.length; ii++){
+            var monster = monsters[ii];
+            var collision = intersectRect({
+              left: bullet.x ,
+              right: bullet.x + bulletWidth,
+              top: bullet.y,
+              bottom: bullet.y + bulletWidth
+            },
+            {
+              left: monster.x,
+              right: monster.x + monsterWidth,
+              top: monster.y,
+              bottom: monster.y + monsterWidth
+            });
+
+            if(collision){
+              console.log('KILLLL!');
+              monsters.splice(ii, 1);
+
+            }
+          }
+        }
+      }
+
 
 
 
@@ -136,6 +164,7 @@ window.onload = function(){
 
 
         checkIfPlayerHit();
+        checkIfMonsterKilled();
         setTimeout(function(){ 
           render();
         }, 1000/60);
