@@ -127,13 +127,10 @@ window.onload = function(){
       var updateBullets= function(){
 
         time++;
-        console.log('time', time);
         for(var ii = 0; ii < bullets.length; ii++){
-          console.log('bullets');
           var m = bullets[ii];
           m.x+= 10;
           m.y = Math.sin( m.x/10 ) * 20  + m.y;
-          console.log('sin', Math.sin(time));
           drawSquare('white', m.x, m.y, bulletWidth);
           if(m.x+10 + bulletWidth  >=  width ) {
             bullets.splice(ii, 1);
