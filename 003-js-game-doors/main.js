@@ -176,6 +176,7 @@
   var startGame = function(){
     str = "";
     doors = [];
+    monsters = [];
     initDoors(2);
     $(".user-text")
     .text("Type in the word in reverse to get a hint of which door to take. Or not and just guess!");
