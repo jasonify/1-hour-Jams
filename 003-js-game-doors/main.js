@@ -87,6 +87,16 @@
     }
   };
 
+  var drawDoors = function(){
+    for(var ii = 0; ii < doors.length; ii++){
+      var door = doors[ii];
+      ctx.beginPath();
+      ctx.rect(door.x, door.y, door.width, door.height);
+      ctx.fillStyle = door.color;
+      ctx.fill();
+    }
+  }
+
   var startGame = function(){
     str = "";
     doors = [];
@@ -101,10 +111,13 @@
 
   var render = function(){
     ctx.clearRect(0,0, width, height);
+
+    // Draw player
     ctx.beginPath();
     ctx.rect(mouseX, mouseY, 50,50);
     ctx.fillStyle = "black";
     ctx.fill();
+    drawDoors();
 
     intervalRef = setTimeout(function(){
       render();
