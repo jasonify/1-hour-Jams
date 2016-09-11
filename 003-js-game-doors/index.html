@@ -39,17 +39,24 @@
       width: 100%;
       text-align: center;
     }
+    .level{
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: 1.5em;
+      color: white;
+    }
 
   </style>
 
 </head>
 <body>
-    <div class="user-text">      Type in the word in reverse to get a hint of which door to take. Or not and just guess!
-</div>
+    <div class="user-text"></div>
     <div class="target-word">Loading..</div>
     <div class="desc">
       Move with mouse. Type in the word in reverse to get a hint of which door to take. Or not and just guess!
     </div>
+    <div class='level'> Level 0 </div>
   <canvas id="canvas"></canvas>
 
   <script src="jquery-1.8.2.js"></script>

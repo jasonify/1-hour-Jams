@@ -246,6 +246,7 @@
 
   var render = function(){
     if(gameOver) return;
+    $('.level').text("Level " + (level+1));
     ctx.clearRect(0,0, width, height);
 
     // Draw player

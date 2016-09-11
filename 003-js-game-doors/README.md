@@ -4,3 +4,6 @@ You are an elite hacker. gotta crack the code so you can reveal the back door an
 [ ] remove jquery
 [ ] screenshake (move the canvas)
 [ ] generate sound via JS
+
+[ ] restart nicer
+[ ] show level
