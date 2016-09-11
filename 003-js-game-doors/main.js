@@ -1,4 +1,3 @@
-window.onload = function(){
   var canvas = document.getElementById('canvas'),
   context = canvas.getContext('2d'),
   width = canvas.width = window.innerWidth,
@@ -11,7 +10,7 @@ window.onload = function(){
   var minASCCICode = 65;
   // z  = 122
   var maxASCIICode = 122;
-  var str = ""
+  var str = ""; // user string
 
   var wordsMatch = function(){
     var reversed = targetWord.split('').reverse().join('');
@@ -54,6 +53,7 @@ window.onload = function(){
     }
   });
 
+  var intervalRef;
   var generateTargetWord = function(length){
     var str = "";
     for(var ii = 0; ii < length; ii++){
@@ -70,7 +70,11 @@ window.onload = function(){
   };
 
   var startGame = function(){
+    str = ""
+    $(".user-text")
+    .text("Type in the word in reverse to get a hint of which door to take. Or not and just guess!");
     console.log('Starting Game...');
+    clearInterval(intervalRef);
     setWord();
     render();
   };
@@ -82,12 +86,13 @@ window.onload = function(){
     ctx.fillStyle = "black";
     ctx.fill();
 
-    setTimeout(function(){
+    intervalRef = setInterval(function(){
       render();
     }, 1000/60)
   }
-  startGame();
 
+window.onload = function(){
+  startGame();
   document.addEventListener('mousemove', function(ee){
     mouseX = ee.clientX;
     mouseY = ee.clientY;
