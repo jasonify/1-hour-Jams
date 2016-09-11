@@ -128,9 +128,9 @@
     secretDoor = Math.floor(Math.random() * count);
     var isEvenLevel = level % 2 === 0;
     for(var ii = 0; ii < count; ii++){
-      var x =  width - 55 - ii*15;
+      var x =  width - playerWidth+10 - ii*15;
     if(!isEvenLevel){
-     x = 0 + 15 + ii*15;
+     x = 0 + playerWidth+1 + ii*15;
     }
 
 
