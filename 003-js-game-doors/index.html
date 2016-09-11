@@ -14,9 +14,15 @@
     canvas{ display: block; float: left;}
     .text{
       position: absolute;
-      j
       top: 0px;
       left:100px;
+      font-size: 2em;
+    }
+    .target-word{
+      position: absolute;
+      top: 1em;
+      left:100px;
+      color: #2eec40;
       font-size: 2em;
     }
   </style>
@@ -24,6 +30,7 @@
 </head>
 <body>
     <div class="text">--</div>
+    <div class="target-word">Loading..</div>
   <canvas id="canvas"></canvas>
 
   <script src="jquery-1.8.2.js"></script>
