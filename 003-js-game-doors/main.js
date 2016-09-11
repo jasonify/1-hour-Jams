@@ -8,6 +8,8 @@ window.onload = function(){
   var ctx = context;
 
 
+  var mouseX  = 0;
+  var mouseY = 0;
   var targetWord = '';
   // A = 65
   var minASCCICode = 65;
@@ -24,6 +26,10 @@ window.onload = function(){
     return   subReversed === str;
   }
 
+
+  var indicateDoor = function(){
+    console.log('ENABLE DOOR!');
+  }
   $(document).keypress(function(event){
     console.log(event.charCode);
     console.log(String.fromCharCode(event.charCode))
@@ -34,11 +40,9 @@ window.onload = function(){
     var wordsMatched = wordsMatch();
     console.log('wordsMatch', wordsMatched);
     if(wordsMatched && str.length === targetWord.length){
-      alert(' MATCHED!')
+      indicateDoor();
     }
   });
-
-
 
   var generateTargetWord = function(length){
     var str = "";
@@ -58,10 +62,27 @@ window.onload = function(){
   var startGame = function(){
     console.log('Starting Game...');
     setWord();
-
+    render();
   };
 
+  var render = function(){
+
+    ctx.clearRect(0,0, width, height);
+    ctx.beginPath();
+    ctx.rect(mouseX, mouseY, 50,50);
+    ctx.fillStyle = "black";
+    ctx.fill();
+
+
+    setTimeout(function(){
+      render();
+    }, 1000/60)
+  }
   startGame();
 
+  document.addEventListener('mousemove', function(ee){
+    mouseX = ee.clientX;
+    mouseY = ee.clientY;
+  });
 
 };
