@@ -4,6 +4,7 @@
   height = canvas.height = window.innerHeight;
   var ctx = context;
   var mouseX  = 0;
+  var level = 0;
   var green = '#2eec40';
   var mouseY = 0;
   var targetWord = '';
@@ -127,7 +128,7 @@
     secretDoor = Math.floor(Math.random() * count);
     for(var ii = 0; ii < count; ii++){
       doors.push({
-        x: width * .7 + Math.random()*width*0.25,
+        x: width - 15 - ii*15,
         y: (Math.random() * height*0.8) + height*0.1,
         color: 'black',
         isSecretDoor: ii === secretDoor,
@@ -160,6 +161,7 @@
       if(collision){
         console.log('HIT!');
         gameOver = true;
+        level = 0;
         alert('Game over :(. Refresh to restart');
       }
     }
@@ -173,18 +175,51 @@
       ctx.fillStyle = door.color;
       ctx.fill();
     }
+  };
+
+  var checkDoors = function(){
+
+      for(var ii = 0; ii < doors.length; ii++){
+        var monster = doors[ii];
+        var collision = intersectRect({
+          left: mouseX,
+          right: mouseX + playerWidth,
+          top: mouseY,
+          bottom: mouseY + playerWidth
+        },
+        {
+          left: monster.x,
+          right: monster.x + monsterWidth,
+          top: monster.y,
+          bottom: monster.y + monsterWidth
+        });
+
+        if(collision){
+          if(ii === secretDoor){
+            console.log('Door good!')
+            level++;
+            startGame();
+          } else {
+            console.log('HIT!');
+            gameOver = true;
+            level = 0;
+            alert('Bad door! Game over :(. Refresh to restart');
+          }
+        }
+      }
+
   }
 
   var startGame = function(){
     str = "";
     doors = [];
     monsters = [];
-    initDoors(2);
+    initDoors(2+level);
     $(".user-text")
     .text("Type in the word in reverse to get a hint of which door to take. Or not and just guess!");
     console.log('Starting Game...');
     clearInterval(intervalRef);
-    setWord(4);
+    setWord(2+level);
     render();
   };
 
@@ -202,6 +237,8 @@
     //updateMonsters();
 
     checkIfPlayerHit();
+    checkDoors();
+
 
     intervalRef = setTimeout(function(){
       render();
