@@ -99,7 +99,7 @@
     if(wordsMatched && str.length === targetWord.length){
       indicateDoor();
       $('.user-text').css({
-        color: green 
+        color: green
       });
     }
   });
@@ -115,8 +115,8 @@
     return str;
   };
 
-  var setWord = function(){
-    targetWord = generateTargetWord(4);
+  var setWord = function(len){
+    targetWord = generateTargetWord(len);
     $('.target-word').text(targetWord);
   };
 
@@ -127,7 +127,7 @@
     secretDoor = Math.floor(Math.random() * count);
     for(var ii = 0; ii < count; ii++){
       doors.push({
-        x: width * .8,
+        x: width * .7 + Math.random()*width*0.25,
         y: (Math.random() * height*0.8) + height*0.1,
         color: 'black',
         isSecretDoor: ii === secretDoor,
@@ -184,7 +184,7 @@
     .text("Type in the word in reverse to get a hint of which door to take. Or not and just guess!");
     console.log('Starting Game...');
     clearInterval(intervalRef);
-    setWord();
+    setWord(4);
     render();
   };
 
