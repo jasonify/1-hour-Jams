@@ -7,17 +7,24 @@
   <link rel="stylesheet" href="main.css">
   <style type="text/css">
 
+    * {
+      cursor: none;
+    }
+
     html, body{
       margin: 0px;
         background: #3e9cff;
     }
+
     canvas{ display: block; float: left;}
+
     .text{
       position: absolute;
       top: 0px;
       left:100px;
       font-size: 2em;
     }
+
     .target-word{
       position: absolute;
       top: 1em;
@@ -25,12 +32,22 @@
       color: #2eec40;
       font-size: 2em;
     }
+    .desc{
+      position: absolute;
+      bottom: 11px;
+      width: 100%;
+      text-align: center;
+    }
+
   </style>
 
 </head>
 <body>
     <div class="text">--</div>
     <div class="target-word">Loading..</div>
+    <div class="desc">
+      Type in the word in reverse to get a hint of which door to take. Or not and just guess!
+    </div>
   <canvas id="canvas"></canvas>
 
   <script src="jquery-1.8.2.js"></script>
