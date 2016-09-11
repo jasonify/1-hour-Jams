@@ -18,20 +18,21 @@
 
     canvas{ display: block; float: left;}
 
-    .text{
+    .user-text{
       position: absolute;
-      top: 0px;
+      top: 1px;
       left:100px;
-      font-size: 2em;
+      font-size: 1.5em;
     }
 
     .target-word{
       position: absolute;
       top: 1em;
       left:100px;
-      color: #2eec40;
+      color: white;
       font-size: 2em;
     }
+
     .desc{
       position: absolute;
       bottom: 11px;
@@ -43,10 +44,11 @@
 
 </head>
 <body>
-    <div class="text">--</div>
+    <div class="user-text">      Type in the word in reverse to get a hint of which door to take. Or not and just guess!
+</div>
     <div class="target-word">Loading..</div>
     <div class="desc">
-      Type in the word in reverse to get a hint of which door to take. Or not and just guess!
+      Move with mouse. Type in the word in reverse to get a hint of which door to take. Or not and just guess!
     </div>
   <canvas id="canvas"></canvas>
 

@@ -27,7 +27,7 @@ window.onload = function(){
       var mouseY = 0;
       var playerX = 100
       var playerWidth = 50;
-      
+
 
             var bullets  = [
       ];
@@ -48,8 +48,8 @@ window.onload = function(){
 
       // borrowed util
       function intersectRect(r1, r2) {
-        return !(r2.left > r1.right || 
-                 r2.right < r1.left || 
+        return !(r2.left > r1.right ||
+                 r2.right < r1.left ||
                    r2.top > r1.bottom ||
                      r2.bottom < r1.top);
       }
@@ -156,7 +156,7 @@ window.onload = function(){
 
       var checkMonsters = function(){
 
-        
+
         var createCount = maxMonsters -  monsters.length;
         for(var ii = 0; ii < createCount ; ii++){
           monsters.push({
@@ -165,7 +165,7 @@ window.onload = function(){
           });
         }
 
-       
+
       }
 
 
@@ -182,13 +182,13 @@ window.onload = function(){
         updateBullets();
         updateTrophies();
 
-        // We are drawing the killer 
+        // We are drawing the killer
         drawSquare('yellow', playerX, mouseY,  playerWidth);
 
 
         checkIfPlayerHit();
         checkIfMonsterKilled();
-        setTimeout(function(){ 
+        setTimeout(function(){
           render();
         }, 1000/60);
       }
@@ -219,5 +219,3 @@ window.onload = function(){
 
 
 };
-
-

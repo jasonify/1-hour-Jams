@@ -1,13 +1,9 @@
-
 window.onload = function(){
-
   var canvas = document.getElementById('canvas'),
   context = canvas.getContext('2d'),
   width = canvas.width = window.innerWidth,
   height = canvas.height = window.innerHeight;
   var ctx = context;
-
-
   var mouseX  = 0;
   var mouseY = 0;
   var targetWord = '';
@@ -26,21 +22,35 @@ window.onload = function(){
     return   subReversed === str;
   }
 
-
   var indicateDoor = function(){
     console.log('ENABLE DOOR!');
-  }
+  };
+
   $(document).keypress(function(event){
     console.log(event.charCode);
     console.log(String.fromCharCode(event.charCode))
 
     str += String.fromCharCode(event.charCode);
-    $('.text').text(str);
-    console.log();
+    $('.user-text').text(str);
     var wordsMatched = wordsMatch();
     console.log('wordsMatch', wordsMatched);
+
+
+    $('.user-text').css({
+        color: 'white',
+        'font-size': '2em'
+      });
+    if(!wordsMatched){
+      $('.user-text').css({
+        color: 'red'
+      });
+    }
+
     if(wordsMatched && str.length === targetWord.length){
       indicateDoor();
+      $('.user-text').css({
+        color: '#2eec40'
+      });
     }
   });
 
@@ -66,13 +76,11 @@ window.onload = function(){
   };
 
   var render = function(){
-
     ctx.clearRect(0,0, width, height);
     ctx.beginPath();
     ctx.rect(mouseX, mouseY, 50,50);
     ctx.fillStyle = "black";
     ctx.fill();
-
 
     setTimeout(function(){
       render();
