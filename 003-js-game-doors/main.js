@@ -8,6 +8,10 @@
   var targetWord = '';
   // A = 65
   var minASCCICode = 65;
+  var monsters = [];
+  var monsterWidth = 10;
+  var playerWidth = playerHeight = 50;
+
   // z  = 122
   var maxASCIICode = 122;
   var str = ""; // user string
@@ -21,6 +25,50 @@
     console.log('target Substring', subReversed);
     return   subReversed === str;
   }
+
+  // borrowed util
+  function intersectRect(r1, r2) {
+    return !(r2.left > r1.right ||
+      r2.right < r1.left ||
+      r2.top > r1.bottom ||
+      r2.bottom < r1.top);
+    }
+
+
+  var updateMonsters = function(){
+
+    for(var ii = 0; ii < monsters.length; ii++){
+      var m = monsters[ii];
+      m.x-= 10;
+      drawSquare('red', m.x, m.y, monsterWidth);
+      if(m.x-10 <= 0 ) {
+        monsters.splice(ii, 1);
+      }
+    }
+  };
+
+  var drawSquare = function(color, x, y, size){
+    ctx.beginPath();
+    ctx.rect(x, y, size, size);
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
+
+  var checkMonsters = function(){
+
+
+    var createCount = maxMonsters -  monsters.length;
+    for(var ii = 0; ii < createCount ; ii++){
+      monsters.push({
+        x: width + Math.random()*400, // adding monster with a little offset
+        y: Math.random() * height
+      });
+    }
+
+
+  }
+
 
   var indicateDoor = function(){
     console.log('ENABLE DOOR!');
@@ -81,11 +129,39 @@
         y: (Math.random() * height*0.8) + height*0.1,
         color: 'black',
         isSecretDoor: ii === secretDoor,
-        height: 100,
-        width: 20
+        height: 20,
+        width: 10
       })
     }
   };
+
+  var maxMonsters = 10;
+  var gameOver = false;
+
+  var checkIfPlayerHit = function(){
+
+    for(var ii = 0; ii < monsters.length; ii++){
+      var monster = monsters[ii];
+      var collision = intersectRect({
+        left: mouseX,
+        right: mouseX + playerWidth,
+        top: mouseY,
+        bottom: mouseY + playerWidth
+      },
+      {
+        left: monster.x,
+        right: monster.x + monsterWidth,
+        top: monster.y,
+        bottom: monster.y + monsterWidth
+      });
+
+      if(collision){
+        console.log('HIT!');
+        gameOver = true;
+        alert('Game over :(. Refresh to restart');
+      }
+    }
+  }
 
   var drawDoors = function(){
     for(var ii = 0; ii < doors.length; ii++){
@@ -110,14 +186,19 @@
   };
 
   var render = function(){
+    if(gameOver) return;
     ctx.clearRect(0,0, width, height);
 
     // Draw player
     ctx.beginPath();
-    ctx.rect(mouseX, mouseY, 50,50);
+    ctx.rect(mouseX, mouseY, playerWidth, playerHeight);
     ctx.fillStyle = "black";
     ctx.fill();
     drawDoors();
+    checkMonsters();
+    updateMonsters();
+
+    checkIfPlayerHit();
 
     intervalRef = setTimeout(function(){
       render();
