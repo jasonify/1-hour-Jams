@@ -63,7 +63,7 @@
     var createCount = (maxMonsters+level) -  monsters.length;
     for(var ii = 0; ii < createCount ; ii++){
       monsters.push({
-        x: width + Math.random()*400, // adding monster with a little offset
+        x: width + Math.random()*400+300, // adding monster with a little offset
         y: Math.random() * height
       });
     }
@@ -132,7 +132,6 @@
     if(!isEvenLevel){
      x = 0 + playerWidth+1 + ii*15;
     }
-
 
       doors.push({
         x: x,
