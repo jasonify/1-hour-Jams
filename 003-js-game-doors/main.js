@@ -60,7 +60,7 @@
   var checkMonsters = function(){
 
 
-    var createCount = maxMonsters -  monsters.length;
+    var createCount = (maxMonsters+level) -  monsters.length;
     for(var ii = 0; ii < createCount ; ii++){
       monsters.push({
         x: width + Math.random()*400, // adding monster with a little offset
@@ -145,7 +145,7 @@
     }
   };
 
-  var maxMonsters = 10;
+  var maxMonsters = 2;
   var gameOver = false;
 
   var checkIfPlayerHit = function(){
@@ -241,7 +241,7 @@
     ctx.fill();
     drawDoors();
     checkMonsters();
-    //updateMonsters();
+    updateMonsters();
 
     checkIfPlayerHit();
     checkDoors();
