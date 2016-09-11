@@ -12,6 +12,7 @@
   var maxASCIICode = 122;
   var str = ""; // user string
 
+  var doors;
   var wordsMatch = function(){
     var reversed = targetWord.split('').reverse().join('');
     console.log('reversed', reversed);
@@ -69,8 +70,26 @@
     $('.target-word').text(targetWord);
   };
 
+  var secretDoor;
+
+  var initDoors = function(count){
+    secretDoor = Math.floor(Math.random() * count);
+    for(var ii = 0; ii < count; ii++){
+      doors.push({
+        x: width * .8,
+        y: (Math.random() * height*0.8) + height*0.1,
+        color: 'black',
+        isSecretDoor: ii === secretDoor,
+        height: 100,
+        width: 20
+      })
+    }
+  };
+
   var startGame = function(){
-    str = ""
+    str = "";
+    doors = [];
+    initDoors(2);
     $(".user-text")
     .text("Type in the word in reverse to get a hint of which door to take. Or not and just guess!");
     console.log('Starting Game...');
