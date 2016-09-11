@@ -126,9 +126,16 @@
   // Moving doors maybe?
   var initDoors = function(count){
     secretDoor = Math.floor(Math.random() * count);
+    var isEvenLevel = level % 2 === 0;
     for(var ii = 0; ii < count; ii++){
+      var x =  width - 15 - ii*15;
+    if(!isEvenLevel){
+     x = 0 + 15 + ii*15;
+    }
+
+
       doors.push({
-        x: width - 15 - ii*15,
+        x: x,
         y: (Math.random() * height*0.8) + height*0.1,
         color: 'black',
         isSecretDoor: ii === secretDoor,
