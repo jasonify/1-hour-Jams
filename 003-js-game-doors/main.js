@@ -41,7 +41,7 @@
 
     for(var ii = 0; ii < monsters.length; ii++){
       var m = monsters[ii];
-      m.x-= 10;
+      m.x-= 10+level*5;
       drawSquare('red', m.x, m.y, monsterWidth);
       if(m.x-10 <= 0 ) {
         monsters.splice(ii, 1);
@@ -128,7 +128,7 @@
     secretDoor = Math.floor(Math.random() * count);
     var isEvenLevel = level % 2 === 0;
     for(var ii = 0; ii < count; ii++){
-      var x =  width - 15 - ii*15;
+      var x =  width - 55 - ii*15;
     if(!isEvenLevel){
      x = 0 + 15 + ii*15;
     }
@@ -218,16 +218,16 @@
   }
 
   var startGame = function(){
+    //clearTimeout(intervalRef);
     str = "";
     doors = [];
     monsters = [];
     initDoors(2+level);
     $(".user-text")
     .text("Type in the word in reverse to get a hint of which door to take. Or not and just guess!");
+    $('.user-text').css({color: 'white'})
     console.log('Starting Game...');
-    clearInterval(intervalRef);
     setWord(2+level);
-    render();
   };
 
   var render = function(){
@@ -254,6 +254,8 @@
 
 window.onload = function(){
   startGame();
+  render();
+
   document.addEventListener('mousemove', function(ee){
     mouseX = ee.clientX;
     mouseY = ee.clientY;
