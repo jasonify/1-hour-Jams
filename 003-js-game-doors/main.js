@@ -72,6 +72,7 @@
 
   var secretDoor;
 
+  // Moving doors maybe?
   var initDoors = function(count){
     secretDoor = Math.floor(Math.random() * count);
     for(var ii = 0; ii < count; ii++){
@@ -105,7 +106,7 @@
     ctx.fillStyle = "black";
     ctx.fill();
 
-    intervalRef = setInterval(function(){
+    intervalRef = setTimeout(function(){
       render();
     }, 1000/60)
   }
