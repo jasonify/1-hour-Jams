@@ -39,12 +39,23 @@
 
   var updateMonsters = function(){
 
+    var isEvenLevel = level % 2 === 0;
     for(var ii = 0; ii < monsters.length; ii++){
       var m = monsters[ii];
-      m.x-= 10+level*5;
-      drawSquare('red', m.x, m.y, monsterWidth);
-      if(m.x-10 <= 0 ) {
-        monsters.splice(ii, 1);
+
+
+      if(!isEvenLevel){
+        m.x+= 10+level*5;
+        drawSquare('red', m.x, m.y, monsterWidth);
+        if(m.x+10 >= width+monsterWidth ) {
+          monsters.splice(ii, 1);
+        }
+      }else{
+        m.x-= 10+level*5;
+        drawSquare('red', m.x, m.y, monsterWidth);
+        if(m.x-10 <= 0 ) {
+          monsters.splice(ii, 1);
+        }
       }
     }
   };
@@ -59,11 +70,15 @@
 
   var checkMonsters = function(){
 
-
+    var isEvenLevel = level % 2 === 0;
     var createCount = (maxMonsters+level) -  monsters.length;
     for(var ii = 0; ii < createCount ; ii++){
+      var x = width + Math.random()*400+300; // adding monster with a little offset
+      if(!isEvenLevel){
+        x = 0 - Math.random()*400-300; // adding monster with a little offset
+      }
       monsters.push({
-        x: width + Math.random()*400+300, // adding monster with a little offset
+        x: x,
         y: Math.random() * height
       });
     }
