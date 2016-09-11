@@ -4,6 +4,7 @@
   height = canvas.height = window.innerHeight;
   var ctx = context;
   var mouseX  = 0;
+  var green = '#2eec40';
   var mouseY = 0;
   var targetWord = '';
   // A = 65
@@ -72,6 +73,7 @@
 
   var indicateDoor = function(){
     console.log('ENABLE DOOR!');
+    doors[secretDoor].color = green;
   };
 
   $(document).keypress(function(event){
@@ -97,7 +99,7 @@
     if(wordsMatched && str.length === targetWord.length){
       indicateDoor();
       $('.user-text').css({
-        color: '#2eec40'
+        color: green 
       });
     }
   });
@@ -197,7 +199,7 @@
     ctx.fill();
     drawDoors();
     checkMonsters();
-    updateMonsters();
+    //updateMonsters();
 
     checkIfPlayerHit();
 
