@@ -73,9 +73,9 @@
     var isEvenLevel = level % 2 === 0;
     var createCount = (maxMonsters+level) -  monsters.length;
     for(var ii = 0; ii < createCount ; ii++){
-      var x = width + Math.random()*400+300; // adding monster with a little offset
+      var x = width + Math.random()*400+50; // adding monster with a little offset
       if(!isEvenLevel){
-        x = 0 - Math.random()*400-300; // adding monster with a little offset
+        x = 0 - Math.random()*400-50; // adding monster with a little offset
       }
       monsters.push({
         x: x,
