@@ -1,5 +1,14 @@
 console.log('Init');
 var graph;
+var xNode;
+
+var NodeEls = {
+
+}
+var nodesShortList ;
+var xNodeEl;
+
+
     function myGraph() {
 
         // Add and remove elements on the graph object
@@ -124,9 +133,17 @@ var graph;
               .on("click", function() {
                 var c = d3.select(this).classed("doubled");
                 d3.select(this).classed("doubled", !c);
+
                 console.log('clicked', this)
 
-                this.remove();
+
+                var name = $(this).find('circle').attr('data-id');
+                  if(name === xNode){
+                  this.remove();
+                } else {
+
+                }
+
               })
 
             var nodeEnter = node.enter().append("g")
@@ -286,7 +303,7 @@ var graph;
         var NodeEls = {
 
         }
-        var nodesShortList = [A,B, C, D,E];
+        nodesShortList = [A,B, C, D,E];
         // Add nodes:
         for(var ii = 0; ii < nodeList.length; ii++) {
           var node = nodeList[ii];
@@ -302,10 +319,8 @@ var graph;
           }
         }
 
-        var graphStart = nodeList[0];
+        //var graphStart = nodeList[0];
 
-        var xNode;
-        var xNodeEl;
         /*
         setTimeout(function() {
           console.log('add node')
