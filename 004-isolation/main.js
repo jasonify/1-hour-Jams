@@ -8,6 +8,7 @@ var NodeEls = {
 var score = 0;
 var nodesShortList ;
 var xNodeEl;
+var timeLeft = 1000* 30;
 
 
     function myGraph() {
@@ -369,7 +370,13 @@ var xNodeEl;
           NodeEls[xNode].color = '#000';
           graph.update();
 //          keepNodesOnTop();
-
+try{
+          timeLeft -= 500;
+          $('#time').text('Time left: ' + timeLeft / 1000);
+          if(timeLeft <= 0){
+            $('#time').text("GAME OVER!");
+          }
+        }catch(ee){}
         },500);
 
 
