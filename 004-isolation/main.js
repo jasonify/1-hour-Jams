@@ -75,8 +75,8 @@ var graph;
         };
 
         // set up the D3 visualisation in the specified element
-        var w = 960,
-                h = 450;
+        var w = window.innerWidth,
+                h = window.innerHeight;
 
         var color = d3.scale.category10();
 
