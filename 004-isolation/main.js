@@ -255,8 +255,8 @@ var graph;
         var D = { 'name': 'D', links:[]};
         var E = { 'name': 'E', links:[]};
 
-        var X = { 'name': 'X',  radius: 2, links:[A]};
-        A.links.push(X);
+        //var X = { 'name': 'X',  radius: 2, links:[A]};
+        //A.links.push(X);
         // A
         A.links.push(B);
         A.links.push(D);
@@ -286,6 +286,7 @@ var graph;
         var NodeEls = {
 
         }
+        var nodesShortList = [A,B, C, D,E];
         // Add nodes:
         for(var ii = 0; ii < nodeList.length; ii++) {
           var node = nodeList[ii];
@@ -304,6 +305,8 @@ var graph;
         var graphStart = nodeList[0];
 
         var xNode;
+        var xNodeEl;
+        /*
         setTimeout(function() {
           console.log('add node')
              xNode =  graph.addNode(X.name, '#000');
@@ -316,8 +319,20 @@ var graph;
           xNode.radius = 15;
           keepNodesOnTop();
 
-        }, 500);
+        }, 500);*/
+        setInterval(function(){
+          // Reset old node:
+          if(xNode){
+            NodeEls[xNode].radius = 10;
+            NodeEls[xNode].color = '#eee';
+          }
 
+          xNode =  nodeList[Math.floor(Math.random() * nodesShortList.length)].name;
+          NodeEls[xNode].radius = 5;
+          NodeEls[xNode].color = '#000';
+          keepNodesOnTop();
+
+        },1000);
 
 
 
