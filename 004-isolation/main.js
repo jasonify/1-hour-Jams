@@ -8,7 +8,7 @@ var NodeEls = {
 var score = 0;
 var nodesShortList ;
 var xNodeEl;
-var timeLeft = 1000* 30;
+var timeLeft = 1000* 25;
 
 
     function myGraph() {
@@ -374,7 +374,8 @@ try{
           timeLeft -= 500;
           $('#time').text('Time left: ' + timeLeft / 1000);
           if(timeLeft <= 0){
-            $('#time').css({'font-size': '3em', 'color': 'white'})
+            $('#time').css({'font-size': '3em', 'color': 'white'});
+            $("#scoreboard").css({'font-size': '3em', 'color': 'white'})
 
             $('body').css({'background': 'black'})
             $('#time').text("GAME OVER!");
