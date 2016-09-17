@@ -7,3 +7,5 @@ You are an elite hacker. gotta crack the code so you can reveal the back door an
 
 [ ] restart nicer
 [ ] show level
+
+[ ] 3d 
