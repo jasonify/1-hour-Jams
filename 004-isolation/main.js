@@ -5,6 +5,7 @@ var xNode;
 var NodeEls = {
 
 }
+var score = 0;
 var nodesShortList ;
 var xNodeEl;
 
@@ -139,8 +140,26 @@ var xNodeEl;
 
                 var name = $(this).find('circle').attr('data-id');
                   if(name === xNode){
-                  this.remove();
+                    console.log('correct', name, xNode)
+                //  this.remove();
+                  $("body").css({"background": "green"})
+                  setTimeout(function(){
+                    $("body").css({"background": "white"})
+
+                  }, 100);
+                  score++;
+                  $("#scoreboard").text(score);
                 } else {
+                  score--;
+                  $("body").css({"background": "red"})
+                  setTimeout(function(){
+                    $("body").css({"background": "white"})
+
+                  }, 100);
+                  console.log('WRONG!', name, xNode)
+                  console.log('clicked', this)
+                  console.log( this)
+                  $("#scoreboard").text(score);
 
                 }
 
@@ -343,11 +362,11 @@ var xNodeEl;
           }
 
           xNode =  nodeList[Math.floor(Math.random() * nodesShortList.length)].name;
-          NodeEls[xNode].radius = 5;
+          NodeEls[xNode].radius = 10;
           NodeEls[xNode].color = '#000';
           keepNodesOnTop();
 
-        },1000);
+        },500);
 
 
 
