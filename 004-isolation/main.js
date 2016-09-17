@@ -3,8 +3,8 @@ var graph;
 var xNode;
 
 var NodeEls = {
+};
 
-}
 var score = 0;
 var nodesShortList ;
 var xNodeEl;
@@ -156,7 +156,7 @@ var xNodeEl;
                     $("body").css({"background": "white"})
 
                   }, 100);
-                  console.log('WRONG!', name, xNode)
+                  console.log('WRONG!', 'user clicked' , name, 'target', xNode);
                   console.log('clicked', this)
                   console.log( this)
                   $("#scoreboard").text(score);
@@ -250,6 +250,7 @@ var xNodeEl;
 
         // Make it all go
         update();
+        this.update = update;
     }
 
     function drawGraph() {
@@ -355,15 +356,18 @@ var xNodeEl;
 
         }, 500);*/
         setInterval(function(){
+          console.log('timeout');
           // Reset old node:
           if(xNode){
             NodeEls[xNode].radius = 10;
             NodeEls[xNode].color = '#eee';
           }
-
-          xNode =  nodeList[Math.floor(Math.random() * nodesShortList.length)].name;
+          var newNodeName = nodeList[Math.floor(Math.random() * nodesShortList.length)].name;
+          console.log('newNodeName',newNodeName);
+          xNode =  newNodeName;
           NodeEls[xNode].radius = 10;
           NodeEls[xNode].color = '#000';
+          graph.update();
           keepNodesOnTop();
 
         },500);
