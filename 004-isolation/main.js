@@ -368,7 +368,7 @@ var xNodeEl;
           NodeEls[xNode].radius = 10;
           NodeEls[xNode].color = '#000';
           graph.update();
-          keepNodesOnTop();
+//          keepNodesOnTop();
 
         },500);
 
