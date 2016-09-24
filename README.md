@@ -29,4 +29,4 @@ Theme: creation
 ['Play '](https://jasonify.github.io/1-hour-Jams/005-2btn/) 2-btn Game
 
 ![game isoltaiton](005-2btn/screenshot.png)
-#d3.js
+#pixi.js 
