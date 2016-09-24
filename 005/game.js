@@ -36,6 +36,15 @@ richText.x = 30;
 richText.y = 180;
 
 
+var descText = new PIXI.Text('Use keys f /j  ',style);
+descText.x = 30;
+descText.y = 0;
+
+
+stage.addChild(descText);
+
+
+
 
 
 stage.addChild(sprite);
@@ -53,7 +62,12 @@ stage.addChild(cosmos);
 stage.addChild(monster);
 
 cosmos.position.set(230,400);
-monster.position.set(130,200);
+monster.position.set(430,400);
+
+monster.scale.x-= 0.5;
+monster.scale.y-= 0.5;
+
+
 
 stage.addChild(richText);
 
@@ -87,12 +101,19 @@ var $points = $('#points');
 var points = 0;
 var updatePoints = function(){
   // $points.text(points);
-  richText.setText("Poitns: " + points);
+  richText.setText("Points: " + points);
 }
 
 
 var cosmosDir = 1;
-var comsosVelocity = 3;
+var cosmosVelocity = 3;
+
+
+
+var monsterDir = 1;
+var monsterVelocity = 8;
+
+
 
 
 var animateChar = function(){
@@ -102,6 +123,13 @@ var animateChar = function(){
     points+= 1;
     updatePoints();
   }
+
+  if(isIntersecting(sprite, monster)){
+    console.log('monster intersection!');
+    points+= -1;
+    updatePoints();
+  }
+
   sprite.position.x += dir;
   if(sprite.position.x >=  800  - sprite.width|| sprite.position.x <= 0){
     dir *= -1;
@@ -109,8 +137,35 @@ var animateChar = function(){
 
 
 
+  cosmos.position.y += cosmosDir* cosmosVelocity;
+  if(cosmos.position.y >=  600  || cosmos.position.y <= 0){
+    cosmosDir  *= -1;
+  }
+
+
+
+  monster.position.y += monsterDir * monsterVelocity;
+  if(monster.position.y >=  600  || monster.position.y <= 0){
+    monsterDir  *= -1;
+  }
+
 
 };
+
+
+setInterval(function(){
+
+  monsterVelocity  = Math.random(0, 18) + 3;
+}, 2);
+
+setInterval(function(){
+
+  monsterVelocity  = Math.random(0, 4) + 3;
+}, 3);
+
+
+
+
 
 $(document).on('keypress', function(e){
    var code = e.keyCode || e.which;
