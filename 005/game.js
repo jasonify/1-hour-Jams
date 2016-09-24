@@ -137,6 +137,7 @@ var animateChar = function(){
     updatePoints();
   }
 
+
   sprite.position.x += dir;
   if(sprite.position.x >=  800  - sprite.width|| sprite.position.x <= 0){
     dir *= -1;
@@ -145,10 +146,12 @@ var animateChar = function(){
 
 
 
+  /*
   cosmos.position.x  += cX* cosmosVelocity;
   if(cosmos.position.x >=  800  || cosmos.position.x <= 0){
     cX   *= -1;
   }
+  */
 
 
 
