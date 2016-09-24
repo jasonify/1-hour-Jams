@@ -18,6 +18,26 @@ sprite.scale.y-= 0.8;
 
 
 
+var style = {
+    font : 'bold italic 36px Arial',
+    fill : '#F7EDCA',
+    stroke : '#4a1850',
+    strokeThickness : 5,
+    dropShadow : true,
+    dropShadowColor : '#000000',
+    dropShadowAngle : Math.PI / 6,
+    dropShadowDistance : 6,
+    wordWrap : true,
+    wordWrapWidth : 440
+};
+
+var richText = new PIXI.Text('Points: 0',style);
+richText.x = 30;
+richText.y = 180;
+
+
+
+
 stage.addChild(sprite);
 
 console.log('height' , sprite.height);
@@ -25,8 +45,17 @@ sprite.position.set(230,420);
 console.log(sprite);
 
 
-// var cosmos =   PIXI.Sprite.fromImage('images/creature.png');
+var cosmos =   PIXI.Sprite.fromImage('images/cosmos.png');
+var monster  =   PIXI.Sprite.fromImage('images/avatar.png');
 
+
+stage.addChild(cosmos);
+stage.addChild(monster);
+
+cosmos.position.set(230,400);
+monster.position.set(130,200);
+
+stage.addChild(richText);
 
 // from  http://www.html5gamedevs.com/topic/3759-how-can-i-detect-two-sprits-hit/
 var isIntersecting = function(r1, r2) {
@@ -42,20 +71,44 @@ return !(r2.x > (r1.x + r1.width) ||
 }
 
 
+
+
+
 function onDown (eventData) {
 
-    sprite.scale.x += 0.3;
-    sprite.scale.y += 0.3;
+  //sprite.scale.x += 0.3;
+  //sprite.scale.y += 0.3;
 }
 // start animating
 
 var dir = 6;
+
+var $points = $('#points');
+var points = 0;
+var updatePoints = function(){
+  // $points.text(points);
+  richText.setText("Poitns: " + points);
+}
+
+
+var cosmosDir = 1;
+var comsosVelocity = 3;
+
+
 var animateChar = function(){
 
+  if(isIntersecting(sprite, cosmos)){
+    console.log('intersection!');
+    points+= 1;
+    updatePoints();
+  }
   sprite.position.x += dir;
   if(sprite.position.x >=  800  - sprite.width|| sprite.position.x <= 0){
     dir *= -1;
   }
+
+
+
 
 };
 
