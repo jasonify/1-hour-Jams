@@ -57,6 +57,8 @@ console.log(sprite);
 var cosmos =   PIXI.Sprite.fromImage('images/cosmos.png');
 var monster  =   PIXI.Sprite.fromImage('images/avatar.png');
 
+cosmos.scale.y -= 0.5;
+cosmos.scale.x -= 0.5;
 
 stage.addChild(cosmos);
 stage.addChild(monster);
@@ -114,6 +116,11 @@ var monsterDir = 1;
 var monsterVelocity = 8;
 
 
+var mX = 1;
+var mVX  = 2;
+
+
+var cX = 3;
 
 
 var animateChar = function(){
@@ -137,6 +144,15 @@ var animateChar = function(){
 
 
 
+
+  cosmos.position.x  += cX* cosmosVelocity;
+  if(cosmos.position.x >=  800  || cosmos.position.x <= 0){
+    cX   *= -1;
+  }
+
+
+
+
   cosmos.position.y += cosmosDir* cosmosVelocity;
   if(cosmos.position.y >=  600  || cosmos.position.y <= 0){
     cosmosDir  *= -1;
@@ -150,12 +166,23 @@ var animateChar = function(){
   }
 
 
+  monster.position.x += mX * mVX;
+  if(monster.position.x >=  800  || monster.position.x <= 0){
+    mX   *= -1;
+  }
+
+
+
+
+
 };
 
 
 setInterval(function(){
 
   monsterVelocity  = Math.random(0, 18) + 3;
+  mVX   = Math.random(0, 8) + 3;
+
 }, 2);
 
 setInterval(function(){
