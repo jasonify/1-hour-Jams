@@ -36,9 +36,17 @@ ctx.save();
 ctx.translate(width/2, height/2);
 
   var x  = Math.cos(degrees);
-  var y =  Math.sin(degrees);
-  ctx.filStyle = "black"
-  ctx.fillRect(x * 100, y * 100,10,10);
+  var y =  -Math.sin(degrees);
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = "black";
+  //ctx.fillRect(x * 100, y * 100,10,10);
+  ctx.beginPath();
+  ctx.arc(0, 0, 100,  0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(x * 110, y * 110, 10,   0, Math.PI * 2);
+  ctx.stroke();
+  ctx.fill();
 
   degrees+=0.1;
 
