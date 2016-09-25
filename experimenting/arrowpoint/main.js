@@ -24,7 +24,7 @@ function animate(){
   console.log('angle radians', angle)
   console.log('angle degrees', angle * 180 / Math.PI);
   // ctx.rotate(angle);
-  ctx.rotate(0);
+  ctx.rotate(angle);
 
   ctx.beginPath()
   // Center part
