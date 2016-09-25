@@ -26,12 +26,12 @@ function animate(){
 
   arrowXDiff = Math.cos(circleAngle) * 100;
   arrowYDiff = Math.sin(circleAngle) * 100;
-  console.log(arrowYDiff,'arrowYDiff');
+  // console.log(arrowYDiff,'arrowYDiff');
   circleAngle+=0.05;
   ctx.translate( arrowXDiff , arrowYDiff);
   var angle =  Math.atan2(y,x);
   // console.log('angle radians', angle)
-  console.log('angle degrees', angle * 180 / Math.PI);
+  //console.log('angle degrees', angle * 180 / Math.PI);
   // ctx.rotate(angle);
   ctx.rotate(angle);
 
@@ -46,7 +46,7 @@ function animate(){
 
   setTimeout(function(){
     requestAnimationFrame(animate);
-  }, 1000/30);
+  }, 1000/20);
 }
 animate();
 
