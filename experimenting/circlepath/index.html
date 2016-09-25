@@ -37,12 +37,10 @@ ctx.translate(width/2, height/2);
 
   var x  = Math.cos(degrees);
   var y =  Math.sin(degrees);
-console.log('x', x);
-console.log('y', y);
   ctx.filStyle = "black"
   ctx.fillRect(x * 100, y * 100,10,10);
 
-  degrees++;
+  degrees+=0.1;
 
 setTimeout(function(){
 requestAnimationFrame(animate)
