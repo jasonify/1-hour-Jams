@@ -20,8 +20,8 @@ function animate(){
   // ctx.rotate(Math.PI/180 * 45);
   //ctx.fillRect(-25,-25, 50, 50);
 
-  var angle =  Math.atan(y/x);
-  console.log('angle radians', angle)
+  var angle =  Math.atan2(y,x);
+  // console.log('angle radians', angle)
   console.log('angle degrees', angle * 180 / Math.PI);
   // ctx.rotate(angle);
   ctx.rotate(angle);
@@ -48,6 +48,6 @@ document.addEventListener('mousemove', function(event){
   var mouseY = event.clientY;
   y = mouseY - arrowY;
   x = mouseX - arrowX;
-  console.log('x', x, 'y',y);
+  //console.log('x', x, 'y',y);
 
 });
