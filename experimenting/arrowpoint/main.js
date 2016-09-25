@@ -7,6 +7,10 @@ var height = canvas.height = window.innerHeight;
 var x, y = 0;
 var arrowX = width/2;
 var arrowY = height / 2;
+var arrowXDiff = 0;
+var arrowYDiff = 0;
+
+var circleAngle  = 0;
 function animate(){
   ctx.restore();
   ctx.clearRect(0,0, width, height);
@@ -20,6 +24,9 @@ function animate(){
   // ctx.rotate(Math.PI/180 * 45);
   //ctx.fillRect(-25,-25, 50, 50);
 
+  arrowXDiff = 100;
+  arrowYDiff = 100;
+  ctx.translate( arrowXDiff , arrowYDiff);
   var angle =  Math.atan2(y,x);
   // console.log('angle radians', angle)
   console.log('angle degrees', angle * 180 / Math.PI);
@@ -46,8 +53,8 @@ animate();
 document.addEventListener('mousemove', function(event){
   var mouseX = event.clientX;
   var mouseY = event.clientY;
-  y = mouseY - arrowY;
-  x = mouseX - arrowX;
+  y = mouseY - arrowY - arrowYDiff;
+  x = mouseX - arrowX - arrowXDiff;
   //console.log('x', x, 'y',y);
 
 });
