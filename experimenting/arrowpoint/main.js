@@ -24,8 +24,10 @@ function animate(){
   // ctx.rotate(Math.PI/180 * 45);
   //ctx.fillRect(-25,-25, 50, 50);
 
-  arrowXDiff = 100;
-  arrowYDiff = 100;
+  arrowXDiff = Math.cos(circleAngle) * 100;
+  arrowYDiff = Math.sin(circleAngle) * 100;
+  console.log(arrowYDiff,'arrowYDiff');
+  circleAngle+=0.05;
   ctx.translate( arrowXDiff , arrowYDiff);
   var angle =  Math.atan2(y,x);
   // console.log('angle radians', angle)
