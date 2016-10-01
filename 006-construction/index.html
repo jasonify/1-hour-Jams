@@ -46,7 +46,7 @@
 			var colors ;
 			var mouseX;
 			var mouseY;
-			var mouse ={x:0, y:0};
+			var mouse2 ={x:0, y:0};
 			init();
 			animate();
 
@@ -199,8 +199,8 @@
 
 				event.preventDefault();
 
-				mouse.x = ( ee.clientX / window.innerWidth ) * 2 - 1;
-				mouse.y = - ( ee.clientY / window.innerHeight ) * 2 + 1;
+				mouse2.x = ( ee.clientX / window.innerWidth ) * 2 - 1;
+				mouse2.y = - ( ee.clientY / window.innerHeight ) * 2 + 1;
 
 				//mesh.position.x = mouse.x * 400;
 				//mesh.position.y = mouse.y;
