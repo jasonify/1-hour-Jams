@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - geometry - cube</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				margin: 0px;
+				background-color: #000000;
+				overflow: hidden;
+			}
+			#points{
+				background: white;
+			}
+			div{
+				background: white;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id=""> NEED GREEN TO CONSTUCT. Avoid the other colors. </div>
+		<div id="points"> Points: 0</div>
+		<script src="../build/three.js"></script>
+
+		<script>
+
+		var objects ;
+			var mouse, raycaster;
+			var camera, scene, renderer;
+			var mesh;
+			var points;
+
+			var colors ;
+			var mouseX;
+			var mouseY;
+			var mouse ={x:0, y:0};
+			init();
+			animate();
+
+			function init() {
+				points = 0;
+				objects = [];
+				colors = ['red', 'blue', 'green'];
+
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+				camera.position.z = 400;
+
+				scene = new THREE.Scene();
+
+				raycaster = new THREE.Raycaster();
+				mouse = new THREE.Vector2();
+
+				var texture = new THREE.TextureLoader().load( 'textures/crate.gif' );
+
+				var geometry = new THREE.BoxBufferGeometry( 50, 50, 50 );
+				var material = new THREE.MeshBasicMaterial( { map: texture } );
+
+				mesh = new THREE.Mesh( geometry, material );
+				scene.add( mesh );
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+
+				// INIT RANDOM THIGNS
+				//
+
+				var light = new THREE.DirectionalLight( 0xffffff, 1 );
+				light.position.set( 1, 1, 1 ).normalize();
+				scene.add( light );
+				for ( var i = 0; i < 20; i ++ ) {
+
+					var colorName = colors[Math.floor(Math.random() * 3)];
+					console.log('colorName', colorName)
+					var color = 0x000000;
+					if(colorName == 'red' ){
+					color = 0xff0000;
+					}
+					if(colorName == 'green' ){
+					color = 0x00ff00;
+					}
+
+					if(colorName == 'blue' ){
+					color = 0x0000ff;
+					}
+
+
+
+
+					var object = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: color} ) );
+
+					object.position.x = Math.random() * 800 - 400;
+					object.position.y = Math.random() * 800 - 400;
+					//object.position.z = Math.random() * 800 - 400;
+
+					object.rotation.x = Math.random() * 2 * Math.PI;
+					object.rotation.y = Math.random() * 2 * Math.PI;
+					object.rotation.z = Math.random() * 2 * Math.PI;
+
+					object.scale.x = Math.random() + 0.5;
+					object.scale.y = Math.random() + 0.5;
+					object.scale.z = Math.random() + 0.5;
+
+					object.__color = colorName;
+					objects.push(object);
+
+					scene.add( object );
+
+				}
+
+				// END INIT
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function checkNear  (mesh){
+
+				var intersects = raycaster.intersectObjects( objects );
+
+				if ( intersects.length > 0 ) {
+
+					var intersect = intersects[ 0 ];
+					if(intersect === mesh){
+						consoel.log("MESSSH");
+					} else{
+						console.log('inter', intersect);
+						if(intersect.object.material.color.g >= 0.5){
+
+							document.getElementById('points').innerHTML = "Points: " + ++points;
+
+						} else {
+							document.getElementById('points').innerHTML = "Points: " + --points;
+						}
+					}
+
+					//rollOverMesh.position.copy( intersect.point ).add( intersect.face.normal );
+					//rollOverMesh.position.divideScalar( 50 ).floor().multiplyScalar( 50 ).addScalar( 25 );
+
+				}
+			};
+
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+				for(var ii = 0; ii < objects.length; ii ++){
+					var obj = objects[ii];
+					obj.position.x ++;
+					if(obj.position.x >= window.innerWidth/2){
+						obj.position.x = -window.innerWidth/2 -20;
+					}
+				}
+				checkNear();
+
+				//mesh.rotation.x += 0.005;
+				//mesh.rotation.y += 0.01;
+
+
+				renderer.render( scene, camera );
+
+			}
+
+
+
+
+
+			document.addEventListener('mousemove', function(ee){
+				var event = ee;
+				mouseX =  ee.clientX;
+				mouseY =  ee.clientY;
+
+				console.log('mouseX', mouseX);
+				console.log('mouseY', mouseY);
+
+				event.preventDefault();
+
+				mouse.x = ( ee.clientX / window.innerWidth ) * 2 - 1;
+				mouse.y = - ( ee.clientY / window.innerHeight ) * 2 + 1;
+
+				//mesh.position.x = mouse.x * 400;
+				//mesh.position.y = mouse.y;
+				mesh.position.x = mouseX - window.innerWidth/2;
+				mesh.position.y = -mouseY + window.innerHeight/2;
+
+
+
+
+
+				event.preventDefault();
+
+				mouse.set( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
+
+				raycaster.setFromCamera( mouse, camera );
+
+				checkNear();
+
+
+
+				//checkNear(mesh);
+			});
+
+
+		</script>
+
+	</body>
+</html>
