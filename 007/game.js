@@ -81,9 +81,9 @@ function updatePlayer(){
   if(player.y >= height ){
     player.y = 0;
     points++;
-    if(points % 10 === 0){
-      player.speed++;
-    }
+    player.speedY++;
+    player.speedY = Math.min(10, player.speedY);
+    console.log('player speed',player.speedY);
     $('#points').text('Points: ' + points);
 
   }
@@ -144,7 +144,7 @@ document.addEventListener('mousemove', function(ee){
 });
 
 function restart(){
-  lives = 3;
+  lives = 4;
   points = 0;
   gameOver = false;
   player.y = -player.height;
