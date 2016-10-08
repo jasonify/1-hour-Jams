@@ -81,6 +81,9 @@ function updatePlayer(){
   if(player.y >= height ){
     player.y = 0;
     points++;
+    if(points % 10 === 0){
+      player.speed++;
+    }
     $('#points').text('Points: ' + points);
 
   }
