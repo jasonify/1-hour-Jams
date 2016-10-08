@@ -11,12 +11,15 @@ var enemyTotal = 11;
 var mouseX = width / 2 ;
 var player = {
   x: width/2 -5,
-  y: 0,
+  y: -20,
   width: 10,
   height: 10,
   speedY: 5
-
 };
+var points = 0;
+var lives = 1;
+
+
 function  initEnemies(){
   var enemies = [];
   for(var ii = 0; ii < enemyTotal; ii++){
@@ -77,6 +80,9 @@ function updatePlayer(){
   player.y += player.speedY;
   if(player.y >= height ){
     player.y = 0;
+    points++;
+    $('#points').text('Points: ' + points);
+
   }
  
 }
@@ -91,21 +97,38 @@ function checkHits(){
 
 }
 
+var gameOver = false;
 
 function wasHit(hit){
   if(!hit) return;
   console.log('HIT!!!!');
+  ctx.fillStyle = "#ff0000";
+  ctx.fillRect(0,0, width, height);
+  
+  lives--;
+  $('#lives').text('Lives: ' +  lives);
+  if(lives <= 0 ){ 
+    gameOver = true;
+    $('#lives').text('Game Over! ').css({
+      color: 'black',
+      'font-size': '100px'
+    });
+
+  }
+
 }
 
 
 function animate() {
 
-  ctx.clearRect(0,0, width, height);
-  updateEnemies();
-  updatePlayer();
-  var hit = checkHits();
-  wasHit(hit);
+  if(!gameOver){
+    ctx.clearRect(0,0, width, height);
+    updateEnemies();
+    updatePlayer();
+    var hit = checkHits();
+    wasHit(hit);
 
+  }
   setTimeout(function(){
   requestAnimationFrame(animate);
   }, 1000/60);
@@ -114,5 +137,27 @@ function animate() {
 document.addEventListener('mousemove', function(ee){
   mouseX = ee.clientX;
 });
+
+function restart(){
+  lives = 1;
+  points = 0;
+  gameOver = false;
+  player.y = -player.height;
+  $('#lives').text('Lives: ' +  lives);
+  $('#points').text('Points: ' + points);
+}
+document.addEventListener('mousemove', function(ee){
+
+  mouseX = ee.clientX;
+});
+
+document.addEventListener('mousedown', function(ee){
+  restart();
+});
+
+
+
+restart();
+
 enemies = initEnemies();
 animate();
