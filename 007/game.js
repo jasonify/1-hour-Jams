@@ -17,7 +17,7 @@ var player = {
   speedY: 5
 };
 var points = 0;
-var lives = 1;
+var lives = 0;
 
 
 function  initEnemies(){
@@ -117,6 +117,8 @@ function wasHit(hit){
       'font-size': '100px'
     });
 
+  } else{
+    player.y = -player.height;
   }
 
 }
@@ -142,7 +144,7 @@ document.addEventListener('mousemove', function(ee){
 });
 
 function restart(){
-  lives = 1;
+  lives = 3;
   points = 0;
   gameOver = false;
   player.y = -player.height;
