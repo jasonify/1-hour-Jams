@@ -6,15 +6,15 @@ var width = canvas.width = window.innerWidth;
 var height = canvas.height = window.innerHeight;
 var enemies;
 
-var enemyTotal = 20;
+var enemyTotal = 11;
 function  initEnemies(){
   var enemies = [];
   for(var ii = 0; ii < enemyTotal; ii++){
     var length = Math.random() * 30+ 10;
     enemies.push({
-      x: Math.random() * width* 0.9 + width*0.5,
-      y: Math.random() * height * 0.9 + height*0.5,
-      speed: Math.random() * 30 + 5,
+      x: Math.random() * width* 0.9 + width*0.05,
+      y: Math.random() * height * 0.9 + height*0.05,
+      speed: Math.random() * 15 + 5,
       direction: Math.random() <= 0.5 ? 1: -1,
       width:  length,
       height: length
@@ -53,13 +53,18 @@ function intersects(r1, r2){
 function updateEnemies(){
   ctx.fillStyle = "#fff";
   for(var ii = 0 ; ii < enemies.length ; ii++){
-    var enemey = enemies[ii];
-    ctx.fillRect(enemey.x, enemy.y, enemy.width, enemy.height);
+    var enemy = enemies[ii];
+    ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+    enemy.x += enemy.speed * enemy.direction;
+    if(enemy.x >= width || enemy.x <= 0){
+      enemy.direction *= -1;
+    }
   }
 };
 
 function animate() {
 
+  ctx.clearRect(0,0, width, height);
   updateEnemies();
   requestAnimationFrame(animate);
 }
