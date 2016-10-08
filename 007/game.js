@@ -7,6 +7,15 @@ var height = canvas.height = window.innerHeight;
 var enemies;
 
 var enemyTotal = 11;
+
+var player = {
+  x: width/2 -5,
+  y: 0,
+  width: 10,
+  height: 10,
+  speedY: 10
+
+};
 function  initEnemies(){
   var enemies = [];
   for(var ii = 0; ii < enemyTotal; ii++){
@@ -46,9 +55,7 @@ function intersects(r1, r2){
   }
 
   return intersectRect(b1, b2);
-
 }
-
 
 function updateEnemies(){
   ctx.fillStyle = "#fff";
@@ -62,11 +69,23 @@ function updateEnemies(){
   }
 };
 
+function updatePlayer(){
+  ctx.fillRect(player.x, player.y, player.width, player.height);
+  player.y += player.speedY;
+  if(player.y >= height ){
+    player.y = 0;
+  }
+ 
+}
+
 function animate() {
 
   ctx.clearRect(0,0, width, height);
   updateEnemies();
+  updatePlayer();
+  setTimeout(function(){
   requestAnimationFrame(animate);
+  }, 1000/60);
 }
 
 enemies = initEnemies();
