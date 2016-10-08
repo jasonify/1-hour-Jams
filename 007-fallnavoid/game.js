@@ -85,7 +85,7 @@ function updatePlayer(){
     player.speedY = Math.min(10, player.speedY);
     console.log('player speed',player.speedY);
     $('#points').text('Points: ' + points);
-    ctx.fillRect(0, 0,width, height);
+    // ctx.fillRect(0, 0,width, height);
 
   }
  
