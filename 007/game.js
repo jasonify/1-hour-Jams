@@ -50,9 +50,9 @@ function intersects(r1, r2){
   };
   var b2 = {
     left: r2.x,
-    top: r12y,
-    right: r12x + r2.width,
-    bottom: r2.y + r12height
+    top: r2.y,
+    right: r2.x + r2.width,
+    bottom: r2.y + r2.height
   }
 
   return intersectRect(b1, b2);
@@ -80,12 +80,32 @@ function updatePlayer(){
   }
  
 }
+function checkHits(){
+  for(var ii = 0 ; ii < enemies.length ; ii++){
+    var enemy = enemies[ii];
+    if(intersects(player, enemy)){
+      return true;
+    }
+  }
+  return false;
+
+}
+
+
+function wasHit(hit){
+  if(!hit) return;
+  console.log('HIT!!!!');
+}
+
 
 function animate() {
 
   ctx.clearRect(0,0, width, height);
   updateEnemies();
   updatePlayer();
+  var hit = checkHits();
+  wasHit(hit);
+
   setTimeout(function(){
   requestAnimationFrame(animate);
   }, 1000/60);
