@@ -8,12 +8,13 @@ var enemies;
 
 var enemyTotal = 11;
 
+var mouseX = width / 2 ;
 var player = {
   x: width/2 -5,
   y: 0,
   width: 10,
   height: 10,
-  speedY: 10
+  speedY: 5
 
 };
 function  initEnemies(){
@@ -70,6 +71,8 @@ function updateEnemies(){
 };
 
 function updatePlayer(){
+  ctx.fillStyle = '#00ff00';
+  player.x = mouseX - player.width/2;
   ctx.fillRect(player.x, player.y, player.width, player.height);
   player.y += player.speedY;
   if(player.y >= height ){
@@ -88,5 +91,8 @@ function animate() {
   }, 1000/60);
 }
 
+document.addEventListener('mousemove', function(ee){
+  mouseX = ee.clientX;
+});
 enemies = initEnemies();
 animate();
