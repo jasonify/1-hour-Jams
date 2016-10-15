@@ -1,4 +1,5 @@
 
+var gameOver = false;
 
 
 function intersectRect(r1, r2) {
@@ -31,6 +32,8 @@ var ctx  = canvas.getContext('2d');
 var width = canvas.width = window.innerWidth;
 var height = canvas.height = window.innerHeight;
 
+var points = 0;
+var lives = 0;
 
 var pulseLength = 0;
 var timeStart = 0;
@@ -40,6 +43,40 @@ var mouseIsDown = false;
 var weaponUnitLength = 20;
 
 
+function  initAgents(count){
+  var agents = [];
+  for(var ii = 0; ii < count; ii++){
+    var length = Math.random() * 30+ 10;
+    agents.push({
+      x: Math.random() * width* 0.9 + width*0.05,
+      y: Math.random() * height * 0.9 + height*0.05,
+      speed: Math.random() * 2 + 5,
+      direction: Math.random() <= 0.5 ? 1: -1,
+      width:  length,
+      height: length
+
+    });
+  }
+  return agents;
+}
+
+
+function updateAgents(agents, color){
+  ctx.fillStyle = color;
+  for(var ii = 0 ; ii < agents.length ; ii++){
+    var enemy = agents[ii];
+    ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+    enemy.x += enemy.speed * enemy.direction;
+    if(enemy.x >= width || enemy.x <= 0){
+      enemy.direction *= -1;
+    }
+  }
+}
+
+
+
+var enemies = initAgents(4);
+var allies = initAgents(3);
 var weapon = [];
 
 
@@ -56,21 +93,21 @@ function addToWeapon(x, y){
 
   var pulseCell = {
    x: centerPointX + x * weaponUnitLength,
-   y: centerPointY + y * weaponUnitLength
+   y: centerPointY + y * weaponUnitLength,
+   width: weaponUnitLength,
+   height: weaponUnitLength
   }
   weapon.push(pulseCell);
-  // console.log('pulseCell', pulseCell);
 }
 function updatePulse(){
   weapon = [];
   if(mouseIsDown){
-    pulseLength +=1 ;
+    pulseLength +=0.5 ;
   } else{
     return;
   }
 
   var length = Math.floor(pulseLength);
-  // console.log('pulseLength', length);
   for(var ii = - Math.ceil(length/2); ii < length; ii++){
     var x = 1;
     var y = 1;
@@ -80,19 +117,77 @@ function updatePulse(){
   }
 }
 
+function hitCount(cells1, cells2){
+  var hits = 0;
+  cells1.forEach(function(cell1){
+    cells2.forEach(function(cell2){
+      if(intersects(cell1, cell2)){
+        hits++;
+      }
+    });
+  });
+  return hits;
+};
 
 
+function restart(){
+  lives = 4;
+  points = 0;
+  gameOver = false;
+  $('#lives').text('Lives: ' +  lives);
+  $('#points').text('Points: ' + points);
+}
 
 
 function animate(){
+  if(gameOver){
+    return;
+  }
   ctx.clearRect(0, 0, width, height);
   updatePulse();
 
-  console.log('len', weapon.length);
   weapon.forEach(function(cell){
-    // console.log('cell', cell);
     drawRect(cell, '#fff');
   });
+
+  updateAgents(enemies, '#ff0000');
+  updateAgents(allies, '#00ff00');
+
+
+  var player = {x: centerPointX, y: centerPointY};
+  var enemeyHits = hitCount(weapon, enemies);
+
+
+  var poinsHit = hitCount(weapon, allies);
+  points += poinsHit;
+  if(poinsHit > 0){
+     console.log('POINTS!', points);
+    $('#points').text('Points: ' + points);
+  }
+
+  if(enemeyHits > 0){
+    console.log('HIT');
+
+    ctx.fillStyle = "#ff0000";
+    ctx.fillRect(0,0, width, height);
+
+    lives--;
+    $('#lives').text('Lives: ' +  lives);
+    if(lives <= 0 ){ 
+      gameOver = true;
+      $('#lives').text('Game Over! ').css({
+        color: 'black',
+        'font-size': '100px'
+      });
+    } else {
+      pulse = 0;
+      weapon = [];
+    }
+  }
+  
+
+
+
   requestAnimationFrame(animate, 1000/60);
 };
 
@@ -116,5 +211,12 @@ document.addEventListener('mousedown', function(event){
 
 });
 
+document.body.addEventListener('onkeypress', function(event){
+  console.log('keycode', event.keyCode);
+  console.log('keycode', event);
+});
 
+
+
+restart();
 animate();
