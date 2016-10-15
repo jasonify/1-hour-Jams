@@ -138,7 +138,7 @@ function restart(){
   $('#points').text('Points: ' + points);
 }
 
-
+var wasJustHit = false;
 function animate(){
   if(gameOver){
     return;
@@ -147,7 +147,7 @@ function animate(){
   updatePulse();
 
   weapon.forEach(function(cell){
-    drawRect(cell, '#fff');
+    drawRect(cell, wasJustHit? '#00ff00' : '#fff');
   });
 
   updateAgents(enemies, '#ff0000');
@@ -159,13 +159,16 @@ function animate(){
 
 
   var poinsHit = hitCount(weapon, allies);
+  wasJustHit = false;
   points += poinsHit;
   if(poinsHit > 0){
+      wasJustHit = true;
      console.log('POINTS!', points);
     $('#points').text('Points: ' + points);
   }
 
   if(enemeyHits > 0){
+    wasJustHit = false;
     console.log('HIT');
 
     ctx.fillStyle = "#ff0000";
