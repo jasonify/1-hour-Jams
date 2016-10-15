@@ -72,8 +72,8 @@ function updatePulse(){
   var length = Math.floor(pulseLength);
   // console.log('pulseLength', length);
   for(var ii = - Math.ceil(length/2); ii < length; ii++){
-    var x = centerPointX;
-    var y = centerPointY;
+    var x = 1;
+    var y = 1;
     addToWeapon(x*ii, y*ii);
 
   }
