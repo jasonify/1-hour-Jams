@@ -75,6 +75,7 @@ function updatePulse(){
     var x = 1;
     var y = 1;
     addToWeapon(x*ii, y*ii);
+    addToWeapon(x*-ii, y*ii);
 
   }
 }
