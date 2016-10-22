@@ -12,12 +12,17 @@ $lime.css({
 });
 
 
+$poitns = $('#points');
+var points = 0;
 $lime.click(function(ee){
   if(isGood){
     console.log('YAY');
+    $poitns[0].textContent = ++points;
 
   }else{
     console.log('NOOOOO');
+
+    $poitns[0].textContent = --points;
   }
   console.log(ee);
 });
