@@ -1,15 +1,12 @@
 // Prep
 var data = [];
-for(var ii = 0; ii < 30; ii++){
+for(var ii = 0; ii < 40; ii++){
   data.push(ii*10);
 };
 
 
 var agents = [];
 
-for(var ii = 0; ii < 10; ii++){
-
-}
 // D3
 var svgRoot =  document.getElementById("svgroot");
 var svg = d3.select("svg");
@@ -29,7 +26,9 @@ var circle = svg.selectAll("circle")
   var selectedIndex = 0;
 
 
-  var rect = document.getElementById('enemy');
+  var leftGood = false;
+  var rect = document.getElementById('left');
+  var rightRect =  document.getElementById('right');
   /*
   var rect = svgRoot.createSVGRect();
   rect.x = 0 
@@ -39,6 +38,8 @@ var circle = svg.selectAll("circle")
   */
   console.log(rect);
 
+var points = 0;
+var $points = $('#points');
 function animate(){
 
 
@@ -51,6 +52,8 @@ function animate(){
  
     
   });
+
+
   circleEnter.attr('cy', function(d, i){
     //console.log(Math.sin(time + i));
     return Math.sin((time + i) * 0.1) * 100 + 150;
@@ -64,24 +67,34 @@ function animate(){
 
     var d3Obj =     d3.select(this);
 
-    if(d3Obj.attr('fill') === 'orange'){
-      var isCollisoin = svgRoot.checkIntersection(curr, rect.getBBox());
 
-    if(isCollisoin){
-      console.log('collidning!');
-    }
+    var collide = function(d3Obj, rect){
+      if(d3Obj.attr('fill') === 'orange'){
+        var isCollisoin = svgRoot.checkIntersection(curr, rect.getBBox());
+
+
+        if(isCollisoin){
+          if(d3.select(rect).attr('fill') === 'red'){
+            console.log('collidning!');
+            points--;
+          } else {
+            points++;
+          }
+        }
+
+      }
 
     }
+    collide(d3Obj, rect);
+    collide(d3Obj, rightRect);
 
     
   });
 
-
-
   time++;
 
 
-
+  $points[0].textContent =  "Points: " + points;
 
   setTimeout(function(){
     requestAnimationFrame(animate);
@@ -89,6 +102,21 @@ function animate(){
 }
 
 
+setInterval(function(){
+
+  var opposite = function(rect){
+
+    var isRed = d3.select(rect).attr('fill') === 'red';
+    if(isRed){
+      d3.select(rect).attr('fill', 'lime');
+    } else {
+      d3.select(rect).attr('fill', 'red');
+    }
+  };
+
+  opposite(rect);
+  opposite(rightRect);
+}, 800);
 document.onkeydown = function(e){
   e =e || window.event;
 
