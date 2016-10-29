@@ -8,6 +8,7 @@ for(var ii = 0; ii < 30; ii++){
 var agents = [];
 
 for(var ii = 0; ii < 10; ii++){
+
 }
 // D3
 var svgRoot =  document.getElementById("svgroot");
@@ -28,12 +29,14 @@ var circle = svg.selectAll("circle")
   var selectedIndex = 0;
 
 
-  //var rect = document.getElementById('enemy');
+  var rect = document.getElementById('enemy');
+  /*
   var rect = svgRoot.createSVGRect();
   rect.x = 0 
   rect.y = 0  
   rect.height =  100;
   rect.width =  100;
+  */
   console.log(rect);
 
 function animate(){
@@ -57,10 +60,20 @@ function animate(){
 
   circleEnter.each(function(n, a){
     var curr = this;
-    var isCollisoin = svgRoot.checkIntersection(curr, rect);
+
+
+    var d3Obj =     d3.select(this);
+
+    if(d3Obj.attr('fill') === 'orange'){
+      var isCollisoin = svgRoot.checkIntersection(curr, rect.getBBox());
+
     if(isCollisoin){
       console.log('collidning!');
     }
+
+    }
+
+    
   });
 
 
