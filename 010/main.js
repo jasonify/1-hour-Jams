@@ -10,6 +10,7 @@ var agents = [];
 for(var ii = 0; ii < 10; ii++){
 }
 // D3
+var svgRoot =  document.getElementById("svgroot");
 var svg = d3.select("svg");
 var circle = svg.selectAll("circle")
   .data(data);
@@ -26,11 +27,14 @@ var circle = svg.selectAll("circle")
   var time = 0;
   var selectedIndex = 0;
 
-  d3.selectAll("circle").each(function(n, a){
-    console.log(this);
-    console.log(n);
-    console.log(a);
-  });
+
+  //var rect = document.getElementById('enemy');
+  var rect = svgRoot.createSVGRect();
+  rect.x = 0 
+  rect.y = 0  
+  rect.height =  100;
+  rect.width =  100;
+  console.log(rect);
 
 function animate(){
 
@@ -47,6 +51,16 @@ function animate(){
   circleEnter.attr('cy', function(d, i){
     //console.log(Math.sin(time + i));
     return Math.sin((time + i) * 0.1) * 100 + 150;
+  });
+
+
+
+  circleEnter.each(function(n, a){
+    var curr = this;
+    var isCollisoin = svgRoot.checkIntersection(curr, rect);
+    if(isCollisoin){
+      console.log('collidning!');
+    }
   });
 
 
