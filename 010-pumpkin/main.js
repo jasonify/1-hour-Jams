@@ -117,6 +117,10 @@ setInterval(function(){
   opposite(rect);
   opposite(rightRect);
 }, 800);
+
+
+
+
 document.onkeydown = function(e){
   e =e || window.event;
 
@@ -146,4 +150,4 @@ animate();
 
 
 console.log("INSTRUCTIONS");
-console.log("");
+console.log("Click on the canvas. Then use left and right arrow keys. Get the green for more points.  Was learning more d3 and svg as i went. ");
