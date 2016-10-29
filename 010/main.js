@@ -25,6 +25,13 @@ var circle = svg.selectAll("circle")
 
   var time = 0;
   var selectedIndex = 0;
+
+  d3.selectAll("circle").each(function(n, a){
+    console.log(this);
+    console.log(n);
+    console.log(a);
+  });
+
 function animate(){
 
 
@@ -41,6 +48,8 @@ function animate(){
     //console.log(Math.sin(time + i));
     return Math.sin((time + i) * 0.1) * 100 + 150;
   });
+
+
 
   time++;
 
